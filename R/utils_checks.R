@@ -7,6 +7,19 @@ identical_sm_attr <- function(x, y) {
   )
 }
 
+#' Check if attributes identical for select one questions
+identical_so_attr <- function(x, y) {
+  all(
+    identical(borg_attr(x), borg_attr(y)),
+    identical(borg_slct_attr(x), borg_slct_attr(y))
+  )
+}
+
+#' Check if attributes identical for generic borg questions
+identical_borg_attr <- function(x, y) {
+  identical(borg_attr(x), borg_attr(y))
+}
+
 #' Check attribute errors for attributes appearing in all borg classes
 attr_err <- function(relevant,
                      label,
@@ -111,6 +124,16 @@ sm_chc_check <- function(x, choice_names, type = "list") {
     if (!all(check)) {
       msg <- paste0("values are not in choice_names.")
       abort(msg, .subclass = "borg_sm_chc_error")
+    }
+  }
+}
+
+#' Check if select one value in choices
+so_chc_check <- function(x, choice_names) {
+  if (!all(are_na(choice_names))) {
+    if (!(x %in% choice_names)) {
+      msg <- paste0(x, " not in choice_names.")
+      abort(msg, .subclass = "borg_so_chc_error")
     }
   }
 }

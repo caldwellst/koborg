@@ -10,11 +10,6 @@ new_sm_char <- function(x = character(),
                         binary_type = "logical",
                         binary_sep = "/") {
   vec_assert(x, character())
-  attr_err(relevant,
-           label,
-           constraint)
-  attr_slct_err(choice_names, choice_labels)
-  attr_sm_err(binary_type, binary_sep)
   sm_chc_check(x, choice_names, type = "char")
   new_vctr(x,
            relevant = relevant,
@@ -45,14 +40,18 @@ sm_char <- function(x = character(),
                     binary_type = "logical",
                     binary_sep = "/") {
 
-  new_sm_char(x,
-              relevant,
-              choice_names,
-              choice_labels,
-              label,
-              constraint,
-              binary_type,
-              binary_sep)
+  validate_sm(
+    new_sm_char(
+      x,
+      relevant,
+      choice_names,
+      choice_labels,
+      label,
+      constraint,
+      binary_type,
+      binary_sep
+    )
+  )
 }
 
 #' Low level select multiple list constructor
@@ -65,11 +64,6 @@ new_sm_list <- function(x = list(),
                         binary_type = "logical",
                         binary_sep = "/") {
   vec_assert(x, list())
-  attr_err(relevant,
-           label,
-           constraint)
-  attr_slct_err(choice_names, choice_labels)
-  attr_sm_err(binary_type, binary_sep)
   sm_chc_check(x, choice_names)
   new_list_of(x,
               ptype = character(),
@@ -106,14 +100,28 @@ sm_list <- function(x = list(),
     x <- str_split(x, " ")
   }
 
-  new_sm_list(x,
-              relevant,
-              choice_names,
-              choice_labels,
-              label,
-              constraint,
-              binary_type,
-              binary_sep)
+  validate_sm(
+    new_sm_list(
+      x,
+      relevant,
+      choice_names,
+      choice_labels,
+      label,
+      constraint,
+      binary_type,
+      binary_sep
+    )
+  )
+}
+
+#' Validation function for both select multiple classes
+validate_sm <- function(x) {
+  attr_err(borg_rlvnt(x),
+           borg_lbl(x),
+           borg_cnstrnt(x))
+  attr_slct_err(borg_ch_nms(x), borg_ch_lbls(x))
+  attr_sm_err(borg_bin_type(x), borg_bin_sep(x))
+  x
 }
 
 # FORMATTING FOR PRINTING
