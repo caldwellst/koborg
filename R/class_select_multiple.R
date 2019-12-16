@@ -116,11 +116,9 @@ sm_list <- function(x = list(),
 
 #' Validation function for both select multiple classes
 validate_sm <- function(x) {
-  attr_err(borg_rlvnt(x),
-           borg_lbl(x),
-           borg_cnstrnt(x))
-  attr_slct_err(borg_ch_nms(x), borg_ch_lbls(x))
-  attr_sm_err(borg_bin_type(x), borg_bin_sep(x))
+  attr_err(x)
+  attr_slct_err(x)
+  attr_sm_err(x)
   x
 }
 
@@ -335,11 +333,14 @@ vec_cast.borg_sm_list.default <- function(x, to, ...) vec_default_cast(x, to)
 #' @method vec_cast.borg_sm_list borg_sm_list
 #' @export
 vec_cast.borg_sm_list.borg_sm_list <- function(x, to, ...) {
-  if (identical_sm_attr(x, to)) {
-    x
-  } else {
-    list()
-  }
+  sm_list(x,
+          relevant = borg_rlvnt(to),
+          choice_names = borg_ch_nms(to),
+          choice_labels = borg_ch_lbls(to),
+          label = borg_lbl(to),
+          constraint = borg_cnstrnt(to),
+          binary_type = borg_bin_type(to),
+          binary_sep = borg_bin_sep(to))
 }
 
 #' Casting borg_sm_char to borg_sm_char
@@ -347,11 +348,14 @@ vec_cast.borg_sm_list.borg_sm_list <- function(x, to, ...) {
 #' @method vec_cast.borg_sm_char borg_sm_char
 #' @export
 vec_cast.borg_sm_char.borg_sm_char <- function(x, to, ...) {
-  if (identical_sm_attr(x, to)) {
-    x
-  } else {
-    character()
-  }
+  sm_char(x,
+          relevant = borg_rlvnt(to),
+          choice_names = borg_ch_nms(to),
+          choice_labels = borg_ch_lbls(to),
+          label = borg_lbl(to),
+          constraint = borg_cnstrnt(to),
+          binary_type = borg_bin_type(to),
+          binary_sep = borg_bin_sep(to))
 }
 
 # CASTING BETWEEN CHARACTER

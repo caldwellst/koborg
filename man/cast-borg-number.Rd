@@ -6,6 +6,7 @@
 \alias{as_number.borg_number}
 \alias{as_number.integer}
 \alias{as_number.double}
+\alias{as_number.character}
 \title{Cast to `number`}
 \usage{
 as_number(x, ...)
@@ -15,6 +16,8 @@ as_number(x, ...)
 \method{as_number}{integer}(x, relevant = NA, label = NA, constraint = NA, ...)
 
 \method{as_number}{double}(x, relevant = NA, label = NA, constraint = NA, ...)
+
+\method{as_number}{character}(x, relevant = NA, label = NA, constraint = NA, ...)
 }
 \arguments{
 \item{x}{An object to coerce to `number`.}

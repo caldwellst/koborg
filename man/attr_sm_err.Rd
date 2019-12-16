@@ -4,7 +4,7 @@
 \alias{attr_sm_err}
 \title{Check additional attributes for borg select multiple classes}
 \usage{
-attr_sm_err(binary_type, binary_sep)
+attr_sm_err(x)
 }
 \description{
 Check additional attributes for borg select multiple classes

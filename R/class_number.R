@@ -34,9 +34,7 @@ number <- function(x = double(),
 
 #' Validator for number class
 validate_number <- function(x) {
-  attr_err(borg_rlvnt(x),
-           borg_lbl(x),
-           borg_cnstrnt(x))
+  attr_err(x)
   x
 }
 
@@ -48,7 +46,7 @@ format.borg_number <- function(x, ...) vec_data(x)
 
 #' Full abbreviation in tibbles
 vec_ptype_full.borg_number <- function(x, ...) {
-  "number"
+  "borg_number"
 }
 
 #' Partial abbreviation in tibbles
@@ -58,7 +56,7 @@ vec_ptype_abbr.borg_number <- function(x, ...) {
 
 # COERCIONS
 
-#' Boiler plate for coercion for coercion of select one characters
+#' Boiler plate for coercion for coercion of numbers
 #'
 #' @method vec_ptype2 borg_number
 #' @export
@@ -180,6 +178,26 @@ vec_cast.borg_number.double <- function(x, to, ...) {
          constraint = borg_cnstrnt(to))
 }
 
+# CASTING BETWEEN CHARACTER
+
+#' Casting number to character
+#'
+#' @method vec_cast.character borg_number
+#' @export
+vec_cast.character.borg_number <- function(x, to, ...) as.character(vec_data(x))
+
+#' Casting character to number
+#'
+#' @method vec_cast.borg_number character
+#' @export
+vec_cast.borg_number.character <- function(x, to, ...) {
+  number(x,
+         relevant = borg_rlvnt(to),
+         label = borg_lbl(to),
+         constraint = borg_cnstrnt(to))
+}
+
+
 # HELPER FUNCTIONS FOR CASTING
 
 #' Cast to `number`
@@ -226,6 +244,18 @@ as_number.double <- function(x,
                           constraint = constraint))
 }
 
+#' @rdname cast-borg-number
+#' @export
+as_number.character <- function(x,
+                                relevant = NA,
+                                label = NA,
+                                constraint = NA,
+                                ...) {
+  vec_cast(x, to = number(relevant = relevant,
+                          label = label,
+                          constraint = constraint))
+}
+
 ## DEFINING ARITHMETIC
 
 vec_arith.borg_number <- function(op, x, y, ...) {
@@ -237,10 +267,7 @@ vec_arith.borg_number.default <- function(op, x, y, ...) {
 
 vec_arith.borg_number.borg_number <- function(op, x, y, ...) {
   if (identical_borg_attr(x, y)) {
-    new_number(vec_arith_base(op, x, y),
-               relevant = borg_rlvnt(x),
-               constraint = borg_cnstrnt(x),
-               label = borg_lbl(x))
+    vec_restore(vec_arith_base(op, x, y), x)
   } else {
     vec_arith_base(op, x, y)
   }
@@ -248,17 +275,11 @@ vec_arith.borg_number.borg_number <- function(op, x, y, ...) {
 }
 
 vec_arith.numeric.borg_number <- function(op, x, y, ...) {
-  new_number(vec_arith_base(op, x, y),
-             relevant = borg_rlvnt(y),
-             constraint = borg_cnstrnt(y),
-             label = borg_lbl(y))
+  vec_restore(vec_arith_base(op, x, y), y)
 }
 
 vec_arith.borg_number.numeric <- function(op, x, y, ...) {
-  new_number(vec_arith_base(op, x, y),
-             relevant = borg_rlvnt(x),
-             constraint = borg_cnstrnt(x),
-             label = borg_lbl(x))
+  vec_restore(vec_arith_base(op, x, y), x)
 }
 
 vec_math.borg_number <- function(.fn, .x, ...) vec_math_base(.fn, .x, ...)

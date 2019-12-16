@@ -4,7 +4,7 @@
 \alias{attr_err}
 \title{Check attribute errors for attributes appearing in all borg classes}
 \usage{
-attr_err(relevant, label, constraint)
+attr_err(x)
 }
 \description{
 Check attribute errors for attributes appearing in all borg classes

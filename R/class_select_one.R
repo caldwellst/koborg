@@ -43,10 +43,8 @@ slct_one <- function(x = character(),
 
 #' Validator for select one class
 validate_slct_one <- function(x) {
-  attr_err(borg_rlvnt(x),
-           borg_lbl(x),
-           borg_cnstrnt(x))
-  attr_slct_err(borg_ch_nms(x), borg_ch_lbls(x))
+  attr_err(x)
+  attr_slct_err(x)
   x
 }
 
@@ -136,11 +134,12 @@ vec_cast.borg_slct_one.default <- function(x, to, ...) vec_default_cast(x, to)
 #' @method vec_cast.borg_slct_one borg_slct_one
 #' @export
 vec_cast.borg_slct_one.borg_slct_one <- function(x, to, ...) {
-  if (identical_sm_attr(x, to)) {
-    x
-  } else {
-    character()
-  }
+  slct_one(x,
+           relevant = borg_rlvnt(to),
+           choice_names = borg_ch_nms(to),
+           choice_labels = borg_ch_lbls(to),
+           label = borg_lbl(to),
+           constraint = borg_cnstrnt(to))
 }
 
 # CASTING BETWEEN CHARACTER

@@ -2,10 +2,10 @@
 % Please edit documentation in R/class_number.R
 \name{vec_ptype2.borg_number}
 \alias{vec_ptype2.borg_number}
-\title{Boiler plate for coercion for coercion of select one characters}
+\title{Boiler plate for coercion for coercion of numbers}
 \usage{
 \method{vec_ptype2}{borg_number}(x, y, ...)
 }
 \description{
-Boiler plate for coercion for coercion of select one characters
+Boiler plate for coercion for coercion of numbers
 }

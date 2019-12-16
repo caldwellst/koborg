@@ -4,7 +4,7 @@
 \alias{attr_slct_err}
 \title{Check select question choice names and labels}
 \usage{
-attr_slct_err(choice_names, choice_labels)
+attr_slct_err(x)
 }
 \description{
 Check select question choice names and labels

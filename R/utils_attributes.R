@@ -26,6 +26,10 @@ borg_bin_sep <- function(x) {
   attr(x, "binary_sep")
 }
 
+borg_calc <- function(x) {
+  attr(x, "calculation")
+}
+
 borg_attr <- function(x) {
   c(
     borg_rlvnt(x),
