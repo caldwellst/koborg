@@ -288,11 +288,7 @@ vec_arith.borg_calc_number.default <- function(op, x, y, ...) {
 
 vec_arith.borg_calc_number.borg_calc_number <- function(op, x, y, ...) {
   if (identical_borg_attr(x, y)) {
-    new_calc_number(vec_arith_base(op, x, y),
-                    relevant = borg_rlvnt(x),
-                    constraint = borg_cnstrnt(x),
-                    label = borg_lbl(x),
-                    calculation = borg_calc(x))
+    vec_restore(vec_arith_base(op, x, y), x)
   } else {
     vec_arith_base(op, x, y)
   }
@@ -300,19 +296,11 @@ vec_arith.borg_calc_number.borg_calc_number <- function(op, x, y, ...) {
 }
 
 vec_arith.numeric.borg_calc_number <- function(op, x, y, ...) {
-  new_calc_number(vec_arith_base(op, x, y),
-                  relevant = borg_rlvnt(y),
-                  constraint = borg_cnstrnt(y),
-                  label = borg_lbl(y),
-                  calculation = borg_calc(y))
+  vec_restore(vec_arith_base(op, x, y), y)
 }
 
 vec_arith.borg_calc_number.numeric <- function(op, x, y, ...) {
-  new_calc_number(vec_arith_base(op, x, y),
-                  relevant = borg_rlvnt(x),
-                  constraint = borg_cnstrnt(x),
-                  label = borg_lbl(x),
-                  calculation = borg_calc(x))
+  vec_restore(vec_arith_base(op, x, y), x)
 }
 
 vec_arith.borg_calc_number.borg_number <- function(op, x, y, ...) {
