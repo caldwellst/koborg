@@ -91,20 +91,7 @@ ch_lbls_error <- function(x, names) {
 
 #' Check additional attributes for borg select multiple classes
 attr_sm_err <- function(x) {
-  sm_bin_type_error(borg_bin_type(x))
   sm_bin_sep_error(borg_bin_sep(x))
-}
-
-#' Check binary type attribute for borg select multiple classes
-sm_bin_type_error <- function(x) {
-  size <- vec_size(x)
-  if (!(is.na(x) | (is.character(x) & size == 1))) {
-    msg <- paste0("binary_type must be a character vector of length 1 or NA, not ", class(x), "of size ", size, ".")
-    abort(msg, .subclass = "borg_bin_type_error")
-  } else if (!vec_in(x, c("logical", "numeric"))) {
-    msg <- paste0("binary_type character value must be one of 'logical' or 'numeric', not '", x, "'.")
-    abort(msg, .subclass = "borg_bin_type_val_error")
-  }
 }
 
 #' Check binary separator attribute for borg select multiple classes
@@ -154,4 +141,35 @@ calc_error <- function(x) {
 
 attr_calc_err <- function(x) {
   calc_error(borg_calc(x))
+}
+
+#' Check select multiple binary attributes
+attr_sm_bin_err <- function(x) {
+  choice_name_error(borg_ch_name(x))
+  choice_label_error(borg_ch_label(x))
+  q_name_error(borg_q_name(x))
+}
+
+choice_label_error <- function(x) {
+  size <- vec_size(x)
+  if (!(is.na(x) | (is.character(x) & size == 1))) {
+    msg <- paste0("choice_label must be a character vector of length 1 or NA, not ", class(x), "of size ", size, ".")
+    abort(msg, .subclass = "borg_ch_lbl_error")
+  }
+}
+
+choice_name_error <- function(x) {
+  size <- vec_size(x)
+  if (!(is.na(x) | (is.character(x) & size == 1))) {
+    msg <- paste0("choice_name must be a character vector of length 1 or NA, not ", class(x), "of size ", size, ".")
+    abort(msg, .subclass = "borg_ch_name_error")
+  }
+}
+
+q_name_error <- function(x) {
+  size <- vec_size(x)
+  if (!(is.na(x) | (is.character(x) & size == 1))) {
+    msg <- paste0("q_name must be a character vector of length 1 or NA, not ", class(x), "of size ", size, ".")
+    abort(msg, .subclass = "borg_q_name_error")
+  }
 }

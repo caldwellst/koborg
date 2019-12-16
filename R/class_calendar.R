@@ -221,7 +221,7 @@ vec_cast.POSIXlt.borg_calendar <- function(x, to, ...) as.POSIXlt(new_date(x), .
 #' Casting POSIXlt to borg_calendaracter
 #'
 #' @method vec_cast.borg_calendar POSIXlt
-#' @imporFrom lubridate as_date
+#' @importFrom lubridate as_date
 #' @export
 vec_cast.borg_calendar.POSIXlt <- function(x, to, ...) {
   calendar(as_date(x),

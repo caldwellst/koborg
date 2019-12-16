@@ -11,7 +11,6 @@ new_sm_list(
   choice_labels = NA,
   label = NA,
   constraint = NA,
-  binary_type = "logical",
   binary_sep = "/"
 )
 }

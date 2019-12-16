@@ -7,7 +7,6 @@ new_sm_char <- function(x = character(),
                         choice_labels = NA,
                         label = NA,
                         constraint = NA,
-                        binary_type = "logical",
                         binary_sep = "/") {
   vec_assert(x, character())
   sm_chc_check(x, choice_names, type = "char")
@@ -17,7 +16,6 @@ new_sm_char <- function(x = character(),
            choice_labels = choice_labels,
            label = label,
            constraint = constraint,
-           binary_type = binary_type,
            binary_sep = binary_sep,
            class = "borg_sm_char")
 }
@@ -37,7 +35,6 @@ sm_char <- function(x = character(),
                     choice_labels = NA,
                     label = NA,
                     constraint = NA,
-                    binary_type = "logical",
                     binary_sep = "/") {
 
   validate_sm(
@@ -48,7 +45,6 @@ sm_char <- function(x = character(),
       choice_labels,
       label,
       constraint,
-      binary_type,
       binary_sep
     )
   )
@@ -61,7 +57,6 @@ new_sm_list <- function(x = list(),
                         choice_labels = NA,
                         label = NA,
                         constraint = NA,
-                        binary_type = "logical",
                         binary_sep = "/") {
   vec_assert(x, list())
   sm_chc_check(x, choice_names)
@@ -72,7 +67,6 @@ new_sm_list <- function(x = list(),
               choice_labels = choice_labels,
               label = label,
               constraint = constraint,
-              binary_type = binary_type,
               binary_sep = binary_sep,
               class = "borg_sm_list")
 }
@@ -93,7 +87,6 @@ sm_list <- function(x = list(),
                     choice_labels = NA,
                     label = NA,
                     constraint = NA,
-                    binary_type = "logical",
                     binary_sep = "/") {
 
   if (vec_is(x, character())) {
@@ -108,7 +101,6 @@ sm_list <- function(x = list(),
       choice_labels,
       label,
       constraint,
-      binary_type,
       binary_sep
     )
   )
@@ -227,7 +219,6 @@ vec_ptype2.borg_sm_char.character <- function(x, y, ...) {
               choice_labels = borg_ch_lbls(x),
               label = borg_lbl(x),
               constraint = borg_cnstrnt(x),
-              binary_type = borg_bin_type(x),
               binary_sep = borg_bin_sep(x))
 }
 
@@ -239,7 +230,6 @@ vec_ptype2.character.borg_sm_char <- function(x, y, ...) {
               choice_labels = borg_ch_lbls(y),
               label = borg_lbl(y),
               constraint = borg_cnstrnt(y),
-              binary_type = borg_bin_type(y),
               binary_sep = borg_bin_sep(y))
 }
 
@@ -252,7 +242,6 @@ vec_ptype2.character.borg_sm_list <- function(x, y, ...) {
           choice_labels = borg_ch_lbls(y),
           label = borg_lbl(y),
           constraint = borg_cnstrnt(y),
-          binary_type = borg_bin_type(y),
           binary_sep = borg_bin_sep(y))
 }
 
@@ -264,7 +253,6 @@ vec_ptype2.borg_sm_list.character <- function(x, y, ...) {
           choice_labels = borg_ch_lbls(x),
           label = borg_lbl(x),
           constraint = borg_cnstrnt(x),
-          binary_type = borg_bin_type(x),
           binary_sep = borg_bin_sep(x))
 }
 
@@ -279,7 +267,6 @@ vec_ptype2.borg_sm_char.borg_sm_list <- function(x, y, ...) {
                 choice_labels = borg_ch_lbls(x),
                 label = borg_lbl(x),
                 constraint = borg_cnstrnt(x),
-                binary_type = borg_bin_type(x),
                 binary_sep = borg_bin_sep(x))
   } else {
     character()
@@ -295,7 +282,6 @@ vec_ptype2.borg_sm_list.borg_sm_char <- function(x, y, ...) {
                 choice_labels = borg_ch_lbls(y),
                 label = borg_lbl(y),
                 constraint = borg_cnstrnt(y),
-                binary_type = borg_bin_type(y),
                 binary_sep = borg_bin_sep(y))
   } else {
     character()
@@ -339,7 +325,6 @@ vec_cast.borg_sm_list.borg_sm_list <- function(x, to, ...) {
           choice_labels = borg_ch_lbls(to),
           label = borg_lbl(to),
           constraint = borg_cnstrnt(to),
-          binary_type = borg_bin_type(to),
           binary_sep = borg_bin_sep(to))
 }
 
@@ -354,7 +339,6 @@ vec_cast.borg_sm_char.borg_sm_char <- function(x, to, ...) {
           choice_labels = borg_ch_lbls(to),
           label = borg_lbl(to),
           constraint = borg_cnstrnt(to),
-          binary_type = borg_bin_type(to),
           binary_sep = borg_bin_sep(to))
 }
 
@@ -377,7 +361,6 @@ vec_cast.borg_sm_char.character <- function(x, to, ...) {
           choice_labels = borg_ch_lbls(to),
           label = borg_lbl(to),
           constraint = borg_cnstrnt(to),
-          binary_type = borg_bin_type(to),
           binary_sep = borg_bin_sep(to))
 }
 
@@ -390,7 +373,6 @@ vec_cast.borg_sm_list.character <- function(x, to, ...) {
           choice_labels = borg_ch_lbls(to),
           label = borg_lbl(to),
           constraint = borg_cnstrnt(to),
-          binary_type = borg_bin_type(to),
           binary_sep = borg_bin_sep(to))
 }
 
@@ -414,7 +396,7 @@ vec_cast.borg_sm_list.borg_sm_char <- function(x, to, ...) {
           choice_labels = borg_ch_lbls(to),
           label = borg_lbl(to),
           constraint = borg_cnstrnt(to),
-          binary_type = borg_bin_type(to))
+          binary_sep = borg_bin_sep(to))
 }
 
 #' Casting borg_sm_list to borg_sm_char
@@ -431,7 +413,6 @@ vec_cast.borg_sm_char.borg_sm_list <- function(x, to, ...) {
           choice_labels = borg_ch_lbls(to),
           label = borg_lbl(to),
           constraint = borg_cnstrnt(to),
-          binary_type = borg_bin_type(to),
           binary_sep = borg_bin_sep(to))
 }
 
@@ -467,7 +448,6 @@ as_sm_char.character <- function(x,
                                  choice_labels = NA,
                                  label = NA,
                                  constraint = NA,
-                                 binary_type = "logical",
                                  binary_sep = "/",
                                  ...) {
   vec_cast(x, to = sm_char(relevant = relevant,
@@ -475,7 +455,6 @@ as_sm_char.character <- function(x,
                            choice_labels = choice_labels,
                            label = label,
                            constraint = constraint,
-                           binary_type = binary_type,
                            binary_sep = binary_sep))
 }
 
@@ -487,7 +466,6 @@ as_sm_char.borg_sm_list <- function(x, ...) {
                            choice_labels = borg_ch_lbls(x),
                            label = borg_lbl(x),
                            constraint = borg_cnstrnt(x),
-                           binary_type = borg_bin_type(x),
                            binary_sep = borg_bin_sep(x)))
 }
 
@@ -521,7 +499,6 @@ as_sm_list.character <- function(x,
                                  choice_labels = NA,
                                  label = NA,
                                  constraint = NA,
-                                 binary_type = "logical",
                                  binary_sep = "/",
                                  ...) {
   vec_cast(x, to = sm_char(relevant = relevant,
@@ -529,7 +506,6 @@ as_sm_list.character <- function(x,
                            choice_labels = choice_labels,
                            label = label,
                            constraint = constraint,
-                           binary_type = binary_type,
                            binary_sep = binary_sep))
 }
 
@@ -541,7 +517,6 @@ as_sm_list.borg_sm_char <- function(x, ...) {
                            choice_labels = borg_ch_lbls(x),
                            label = borg_lbl(x),
                            constraint = borg_cnstrnt(x),
-                           binary_type = borg_bin_type(x),
                            binary_sep = borg_bin_sep(x)))
 }
 

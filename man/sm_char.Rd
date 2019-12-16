@@ -11,7 +11,6 @@ sm_char(
   choice_labels = NA,
   label = NA,
   constraint = NA,
-  binary_type = "logical",
   binary_sep = "/"
 )
 }

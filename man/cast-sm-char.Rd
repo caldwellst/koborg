@@ -21,7 +21,6 @@ as_sm_char(x, ...)
   choice_labels = NA,
   label = NA,
   constraint = NA,
-  binary_type = "logical",
   binary_sep = "/",
   ...
 )
@@ -35,7 +34,6 @@ as_sm_char(x, ...)
   choice_labels = NA,
   label = NA,
   constraint = NA,
-  binary_type = "logical",
   binary_sep = "/",
   ...
 )

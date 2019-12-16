@@ -10,16 +10,24 @@ borg_ch_lbls <- function(x) {
   attr(x, "choice_labels")
 }
 
+borg_ch_name <- function(x) {
+  attr(x, "choice_name")
+}
+
+borg_ch_label <- function(x) {
+  attr(x, "choice_label")
+}
+
+borg_q_name <- function(x) {
+  attr(x, "q_name")
+}
+
 borg_lbl <- function(x) {
   attr(x, "label")
 }
 
 borg_cnstrnt <- function(x) {
   attr(x, "constraint")
-}
-
-borg_bin_type <- function(x) {
-  attr(x, "binary_type")
 }
 
 borg_bin_sep <- function(x) {
@@ -47,7 +55,14 @@ borg_slct_attr <- function(x) {
 
 borg_sm_attr <- function(x) {
   c(
-    borg_bin_type(x),
     borg_bin_sep(x)
+  )
+}
+
+borg_sm_bin_attr <- function(x) {
+  c(
+    borg_ch_name(x),
+    borg_ch_label(x),
+    borg_q_name
   )
 }
