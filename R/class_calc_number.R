@@ -311,4 +311,11 @@ vec_arith.borg_number.borg_calc_number <- function(op, x, y, ...) {
   vec_arith_base(op, x, y)
 }
 
+vec_arith.borg_calc_number.MISSING <- function(op, x, y, ...) {
+  switch(op,
+         `-` = vec_restore(x * -1, x),
+         `+` = x,
+         stop_incompatible_op(op, x, y))
+}
+
 vec_math.borg_calc_number <- function(.fn, .x, ...) vec_math_base(.fn, .x, ...)

@@ -91,6 +91,7 @@ ch_lbls_error <- function(x, names) {
 
 #' Check additional attributes for borg select multiple classes
 attr_sm_err <- function(x) {
+  q_name_error(borg_q_name(x))
   sm_bin_sep_error(borg_bin_sep(x))
 }
 

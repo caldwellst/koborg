@@ -432,7 +432,8 @@ vec_arith.borg_sm_binary.MISSING <- function(op, x, y, ...) {
   switch(op,
          `-` = vec_restore(ifelse(x == T, F, T), x),
          `+` = x,
-         `!` = vec_restore(ifelse(x == T, F, T), x))
+         `!` = vec_restore(ifelse(x == T, F, T), x),
+         stop_incompatible_op(op, x, y))
 }
 
 vec_math.borg_sm_binary <- function(.fn, .x, ...) vec_math_base(.fn, .x, ...)
