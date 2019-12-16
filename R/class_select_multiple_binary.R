@@ -385,3 +385,54 @@ as_sm_binary.integer <- function(x,
                              constraint = constraint,
                              binary = binary_sep))
 }
+
+## DEFINING ARITHMETIC
+
+vec_arith.borg_sm_binary <- function(op, x, y, ...) {
+  UseMethod("vec_arith.borg_sm_binary", y)
+}
+vec_arith.borg_sm_binary.default <- function(op, x, y, ...) {
+  stop_incompatible_op(op, x, y)
+}
+
+vec_arith.borg_sm_binary.borg_sm_binary <- function(op, x, y, ...) {
+  if (identical_borg_attr(x, y)) {
+    vec_restore(vec_arith_base(op, x, y), x)
+  } else {
+    vec_arith_base(op, x, y)
+  }
+}
+
+vec_arith.numeric.borg_sm_binary <- function(op, x, y, ...) {
+  vec_arith_base(op, x, y)
+}
+
+vec_arith.borg_sm_binary.numeric <- function(op, x, y, ...) {
+  vec_arith_base(op, x, y)
+}
+
+vec_arith.logical.borg_sm_binary <- function(op, x, y, ...) {
+  vec_arith_base(op, x, y)
+}
+
+vec_arith.borg_sm_binary.logical <- function(op, x, y, ...) {
+  vec_arith_base(op, x, y)
+}
+
+
+vec_arith.borg_sm_binary.borg_number <- function(op, x, y, ...) {
+  vec_arith_base(op, x, y)
+}
+
+vec_arith.borg_number.borg_sm_binary <- function(op, x, y, ...) {
+  vec_arith_base(op, x, y)
+}
+
+vec_arith.borg_sm_binary.MISSING <- function(op, x, y, ...) {
+  switch(op,
+         `-` = vec_restore(ifelse(x == T, F, T), x),
+         `+` = x,
+         `!` = vec_restore(ifelse(x == T, F, T), x))
+}
+
+vec_math.borg_sm_binary <- function(.fn, .x, ...) vec_math_base(.fn, .x, ...)

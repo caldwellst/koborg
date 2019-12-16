@@ -5,14 +5,13 @@
 \title{Select multiple binary constructor}
 \usage{
 sm_binary(
-  x = character(),
+  x = logical(),
   relevant = NA,
   choice_name = NA,
   choice_label = NA,
   q_name = NA,
   label = NA,
   constraint = NA,
-  binary_type = "logical",
   binary_sep = "/"
 )
 }
