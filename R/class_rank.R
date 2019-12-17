@@ -8,7 +8,8 @@ new_rank_char <- function(x = character(),
                           q_name = NA,
                           label = NA,
                           constraint = NA,
-                          binary_sep = "/") {
+                          max_rank = na_length(choice_names),
+                          position_sep = "/") {
   vec_assert(x, character())
   sm_chc_check(x, choice_names, type = "char")
   new_vctr(x,
@@ -18,10 +19,15 @@ new_rank_char <- function(x = character(),
            q_name = q_name,
            label = label,
            constraint = constraint,
-           binary_sep = binary_sep,
+           max_rank = max_rank,
+           position_sep = position_sep,
            class = "borg_rank_char")
 }
 
+#' Get length or return NA if NA
+na_length <- function(x) {
+  if(all(is.na(x))) NA else length(x[!is.na(x)])
+}
 
 #' Rank character constructor
 #'
@@ -38,7 +44,8 @@ rank_char <- function(x = character(),
                       q_name = NA,
                       label = NA,
                       constraint = NA,
-                      binary_sep = "/") {
+                      max_rank = na_length(choice_names),
+                      position_sep = "/") {
 
   validate_rank(
     new_rank_char(
@@ -49,7 +56,8 @@ rank_char <- function(x = character(),
       q_name,
       label,
       constraint,
-      binary_sep
+      max_rank,
+      position_sep
     )
   )
 }
@@ -62,7 +70,8 @@ new_rank_list <- function(x = list(),
                           q_name = NA,
                           label = NA,
                           constraint = NA,
-                          binary_sep = "/") {
+                          max_rank = na_length(choice_names),
+                          position_sep = "/") {
   vec_assert(x, list())
   sm_chc_check(x, choice_names)
   new_list_of(x,
@@ -73,7 +82,8 @@ new_rank_list <- function(x = list(),
               q_name = q_name,
               label = label,
               constraint = constraint,
-              binary_sep = binary_sep,
+              max_rank = max_rank,
+              position_sep = position_sep,
               class = "borg_rank_list")
 }
 
@@ -94,7 +104,8 @@ rank_list <- function(x = list(),
                       q_name = NA,
                       label = NA,
                       constraint = NA,
-                      binary_sep = "/") {
+                      max_rank = na_length(choice_names),
+                      position_sep = "/") {
 
   if (vec_is(x, character())) {
     x <- str_split(x, " ")
@@ -109,7 +120,8 @@ rank_list <- function(x = list(),
       q_name,
       label,
       constraint,
-      binary_sep
+      max_rank,
+      position_sep
     )
   )
 }
@@ -118,7 +130,7 @@ rank_list <- function(x = list(),
 validate_rank <- function(x) {
   attr_err(x)
   attr_slct_err(x)
-  attr_sm_err(x)
+  attr_rnk_err(x)
   x
 }
 
@@ -202,7 +214,7 @@ vec_ptype2.borg_rank_list.default <- function(x, y, ..., x_arg = "x", y_arg = "y
 #' @method vec_ptype2.borg_rank_list borg_rank_list
 #' @export
 vec_ptype2.borg_rank_list.borg_rank_list <- function(x, y, ...) {
-  if (identical_sm_attr(x, y)) {
+  if (identical_rnk_attr(x, y)) {
     x
   } else {
     list()
@@ -212,7 +224,7 @@ vec_ptype2.borg_rank_list.borg_rank_list <- function(x, y, ...) {
 #' @method vec_ptype2.borg_rank_char borg_rank_char
 #' @export
 vec_ptype2.borg_rank_char.borg_rank_char <- function(x, y, ...) {
-  if (identical_sm_attr(x, y)) {
+  if (identical_rnk_attr(x, y)) {
     x
   } else {
     character()
@@ -246,20 +258,20 @@ vec_ptype2.list.borg_rank_list <- function(x, y, ...) y
 #' @export
 vec_ptype2.borg_rank_list.list <- function(x, y, ...) x
 
-
 # COERSION BETWEEN EACH OTHER
 
 #' @method vec_ptype2.borg_rank_char borg_rank_list
 #' @export
 vec_ptype2.borg_rank_char.borg_rank_list <- function(x, y, ...) {
-  if(identical_sm_attr(x, y)) {
+  if(identical_rnk_attr(x, y)) {
     new_rank_char(relevant = borg_rlvnt(x),
                   choice_names = borg_ch_nms(x),
                   choice_labels = borg_ch_lbls(x),
                   q_name = borg_q_name(x),
                   label = borg_lbl(x),
                   constraint = borg_cnstrnt(x),
-                  binary_sep = borg_bin_sep(x))
+                  max_rank = borg_max_rank(x),
+                  position_sep = borg_pos_sep(x))
   } else {
     character()
   }
@@ -268,7 +280,7 @@ vec_ptype2.borg_rank_char.borg_rank_list <- function(x, y, ...) {
 #' @method vec_ptype2.borg_rank_list borg_rank_char
 #' @export
 vec_ptype2.borg_rank_list.borg_rank_char <- function(x, y, ...) {
-  if(identical_sm_attr(x, y)) {
+  if(identical_rnk_attr(x, y)) {
     y
   } else {
     character()
@@ -313,7 +325,8 @@ vec_cast.borg_rank_list.borg_rank_list <- function(x, to, ...) {
             q_name = borg_q_name(to),
             label = borg_lbl(to),
             constraint = borg_cnstrnt(to),
-            binary_sep = borg_bin_sep(to))
+            max_rank = borg_max_rank(to),
+            position_sep = borg_pos_sep(to))
 }
 
 #' Casting borg_rank_char to borg_rank_char
@@ -328,7 +341,8 @@ vec_cast.borg_rank_char.borg_rank_char <- function(x, to, ...) {
             q_name = borg_q_name(to),
             label = borg_lbl(to),
             constraint = borg_cnstrnt(to),
-            binary_sep = borg_bin_sep(to))
+            max_rank = borg_max_rank(to),
+            position_sep = borg_pos_sep(to))
 }
 
 # CASTING BETWEEN CHARACTER
@@ -351,7 +365,8 @@ vec_cast.borg_rank_char.character <- function(x, to, ...) {
             q_name = borg_q_name(to),
             label = borg_lbl(to),
             constraint = borg_cnstrnt(to),
-            binary_sep = borg_bin_sep(to))
+            max_rank = borg_max_rank(to),
+            position_sep = borg_pos_sep(to))
 }
 
 #' @method vec_cast.borg_rank_list character
@@ -364,7 +379,8 @@ vec_cast.borg_rank_list.character <- function(x, to, ...) {
             q_name = borg_q_name(to),
             label = borg_lbl(to),
             constraint = borg_cnstrnt(to),
-            binary_sep = borg_bin_sep(to))
+            max_rank = borg_max_rank(to),
+            position_sep = borg_pos_sep(to))
 }
 
 # CASTING BETWEEN LISTS
@@ -383,7 +399,8 @@ vec_cast.borg_rank_list.list <- function(x, to, ...) {
             q_name = borg_q_name(to),
             label = borg_lbl(to),
             constraint = borg_cnstrnt(to),
-            binary_sep = borg_bin_sep(to))
+            max_rank = borg_max_rank(to),
+            position_sep = borg_pos_sep(to))
 }
 
 #' @importFrom stringr str_c
@@ -408,7 +425,8 @@ vec_cast.borg_rank_list.borg_rank_char <- function(x, to, ...) {
             q_name = borg_q_name(to),
             label = borg_lbl(to),
             constraint = borg_cnstrnt(to),
-            binary_sep = borg_bin_sep(to))
+            max_rank = borg_max_rank(to),
+            position_sep = borg_pos_sep(to))
 }
 
 #' Casting borg_rank_list to borg_rank_char
@@ -426,7 +444,8 @@ vec_cast.borg_rank_char.borg_rank_list <- function(x, to, ...) {
             q_name = borg_q_name(to),
             label = borg_lbl(to),
             constraint = borg_cnstrnt(to),
-            binary_sep = borg_bin_sep(to))
+            max_rank = borg_max_rank(to),
+            position_sep = borg_pos_sep(to))
 }
 
 # HELPER FUNCTIONS FOR CASTING
@@ -462,7 +481,8 @@ as_rank_char.character <- function(x,
                                    q_name = NA,
                                    label = NA,
                                    constraint = NA,
-                                   binary_sep = "/",
+                                   max_rank = na_length(choice_names),
+                                   position_sep = "/",
                                    ...) {
   vec_cast(x, to = rank_char(relevant = relevant,
                              choice_names = choice_names,
@@ -470,7 +490,8 @@ as_rank_char.character <- function(x,
                              q_name = q_name,
                              label = label,
                              constraint = constraint,
-                             binary_sep = binary_sep))
+                             max_rank = max_rank,
+                             position_sep = position_sep))
 }
 
 #' @rdname cast-rank-char
@@ -482,7 +503,8 @@ as_rank_char.borg_rank_list <- function(x, ...) {
                              q_name = borg_q_name(x),
                              label = borg_lbl(x),
                              constraint = borg_cnstrnt(x),
-                             binary_sep = borg_bin_sep(x)))
+                             max_rank = borg_max_rank(x),
+                             position_sep = borg_pos_sep(x)))
 }
 
 # RANK LIST HELPERS
@@ -516,7 +538,8 @@ as_rank_list.character <- function(x,
                                    q_name = NA,
                                    label = NA,
                                    constraint = NA,
-                                   binary_sep = "/",
+                                   max_rank = na_length(choice_names),
+                                   position_sep = "/",
                                    ...) {
   vec_cast(x, to = rank_char(relevant = relevant,
                              choice_names = choice_names,
@@ -524,7 +547,8 @@ as_rank_list.character <- function(x,
                              q_name = q_name,
                              label = label,
                              constraint = constraint,
-                             binary_sep = binary_sep))
+                             max_rank = max_rank,
+                             position_sep = position_sep))
 }
 
 #' @rdname cast-rank-char
@@ -536,7 +560,8 @@ as_rank_list.borg_rank_char <- function(x, ...) {
                              q_name = borg_q_name(x),
                              label = borg_lbl(x),
                              constraint = borg_cnstrnt(x),
-                             binary_sep = borg_bin_sep(x)))
+                             max_rank = borg_max_rank(x),
+                             position_sep = borg_pos_sep(x)))
 }
 
 #' @export

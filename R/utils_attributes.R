@@ -34,8 +34,16 @@ borg_bin_sep <- function(x) {
   attr(x, "binary_sep")
 }
 
+borg_pos_sep <- function(x) {
+  attr(x, "position_sep")
+}
+
 borg_calc <- function(x) {
   attr(x, "calculation")
+}
+
+borg_max_rank <- function(x) {
+  attr(x, "max_rank")
 }
 
 borg_attr <- function(x) {
@@ -58,6 +66,14 @@ borg_sm_attr <- function(x) {
     borg_bin_sep(x)
   )
 }
+
+borg_rnk_attr <- function(x) {
+  c(
+    borg_pos_sep(x),
+    borg_max_rank(x)
+  )
+}
+
 
 borg_sm_bin_attr <- function(x) {
   c(

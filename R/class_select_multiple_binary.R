@@ -56,7 +56,7 @@ sm_binary <- function(x = logical(),
 #' Validation function for both select multiple classes
 validate_sm <- function(x) {
   attr_err(x)
-  attr_sm_bin_err(x)
+  attr_cmpnnt_err(x)
   attr_sm_err(x)
   x
 }
@@ -323,7 +323,7 @@ as_sm_binary.logical <- function(x,
                              q_name = q_name,
                              label = label,
                              constraint = constraint,
-                             binary = binary_sep))
+                             binary_sep = binary_sep))
 }
 
 #' @rdname cast-sm-binary
@@ -343,7 +343,7 @@ as_sm_binary.numeric <- function(x,
                              q_name = q_name,
                              label = label,
                              constraint = constraint,
-                             binary = binary_sep))
+                             binary_sep = binary_sep))
 }
 
 #' @rdname cast-sm-binary
@@ -363,7 +363,7 @@ as_sm_binary.double <- function(x,
                              q_name = q_name,
                              label = label,
                              constraint = constraint,
-                             binary = binary_sep))
+                             binary_sep = binary_sep))
 }
 
 #' @rdname cast-sm-binary
@@ -383,7 +383,7 @@ as_sm_binary.integer <- function(x,
                              q_name = q_name,
                              label = label,
                              constraint = constraint,
-                             binary = binary_sep))
+                             binary_sep = binary_sep))
 }
 
 ## DEFINING ARITHMETIC
