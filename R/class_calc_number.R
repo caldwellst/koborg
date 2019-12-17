@@ -21,10 +21,10 @@ new_calc_number <- function(x = double(),
 #'
 #' @export
 calc_number <- function(x = double(),
-                   relevant = NA,
-                   label = NA,
-                   constraint = NA,
-                   calculation = NA) {
+                        relevant = NA,
+                        label = NA,
+                        constraint = NA,
+                        calculation = NA) {
   x <- vec_cast(x, double())
   validate_calc_number(
     new_calc_number(
@@ -89,41 +89,21 @@ vec_ptype2.borg_calc_number.borg_calc_number <- function(x, y, ...) {
 # COERCION TO INTEGER
 #' @method vec_ptype2.borg_calc_number integer
 #' @export
-vec_ptype2.borg_calc_number.integer <- function(x, y, ...) {
-  new_calc_number(relevant = borg_rlvnt(x),
-                  label = borg_lbl(x),
-                  constraint = borg_cnstrnt(x),
-                  calculation = borg_calc(x))
-}
+vec_ptype2.borg_calc_number.integer <- function(x, y, ...) x
 
 #' @method vec_ptype2.integer borg_calc_number
 #' @export
-vec_ptype2.integer.borg_calc_number <- function(x, y, ...) {
-  new_calc_number(relevant = borg_rlvnt(y),
-                  label = borg_lbl(y),
-                  constraint = borg_cnstrnt(y),
-                  calculation = borg_calc(y))
-}
+vec_ptype2.integer.borg_calc_number <- function(x, y, ...) y
 
 # COERCION TO DOUBLE
 
 #' @method vec_ptype2.borg_calc_number double
 #' @export
-vec_ptype2.borg_calc_number.double <- function(x, y, ...) {
-  new_calc_number(relevant = borg_rlvnt(x),
-                  label = borg_lbl(x),
-                  constraint = borg_cnstrnt(x),
-                  calculation = borg_calc(x))
-}
+vec_ptype2.borg_calc_number.double <- function(x, y, ...) x
 
 #' @method vec_ptype2.double borg_calc_number
 #' @export
-vec_ptype2.double.borg_calc_number <- function(x, y, ...) {
-  new_calc_number(relevant = borg_rlvnt(y),
-                  label = borg_lbl(y),
-                  constraint = borg_cnstrnt(y),
-                  calculation = borg_calc(y))
-}
+vec_ptype2.double.borg_calc_number <- function(x, y, ...) y
 
 # CASTING
 
@@ -145,7 +125,7 @@ vec_cast.borg_calc_number.default <- function(x, to, ...) vec_default_cast(x, to
 #' @method vec_cast.borg_calc_number borg_calc_number
 #' @export
 vec_cast.borg_calc_number.borg_calc_number <- function(x, to, ...) {
-  calc_number(x,
+  calc_number(vec_data(x),
               relevant = borg_rlvnt(to),
               label = borg_lbl(to),
               constraint = borg_cnstrnt(to),

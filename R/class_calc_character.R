@@ -127,11 +127,11 @@ vec_cast.borg_calc_character.default <- function(x, to, ...) vec_default_cast(x,
 #' @method vec_cast.borg_calc_character borg_calc_character
 #' @export
 vec_cast.borg_calc_character.borg_calc_character <- function(x, to, ...) {
-  if (identical_calc_attr(x, to)) {
-    x
-  } else {
-    character()
-  }
+  calc_character(vec_data(x),
+                 relevant = borg_rlvnt(to),
+                 label = borg_lbl(to),
+                 constraint = borg_cnstrnt(to),
+                 calculation = borg_calc(to))
 }
 
 # CASTING BETWEEN CHARACTER

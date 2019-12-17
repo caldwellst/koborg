@@ -134,7 +134,7 @@ vec_cast.borg_number.default <- function(x, to, ...) vec_default_cast(x, to)
 #' @method vec_cast.borg_number borg_number
 #' @export
 vec_cast.borg_number.borg_number <- function(x, to, ...) {
-  number(x,
+  number(vec_data(x),
          relevant = borg_rlvnt(to),
          label = borg_lbl(to),
          constraint = borg_cnstrnt(to))

@@ -120,11 +120,10 @@ vec_cast.borg_text.default <- function(x, to, ...) vec_default_cast(x, to)
 #' @method vec_cast.borg_text borg_text
 #' @export
 vec_cast.borg_text.borg_text <- function(x, to, ...) {
-  if (identical_borg_attr(x, to)) {
-    x
-  } else {
-    character()
-  }
+  text(vec_data(x),
+       relevant = borg_rlvnt(to),
+       label = borg_lbl(to),
+       constraint = borg_cnstrnt(to))
 }
 
 # CASTING BETWEEN CHARACTER

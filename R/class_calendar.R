@@ -79,11 +79,10 @@ vec_ptype2.borg_calendar.default <- function(x, y, ..., x_arg = "x", y_arg = "y"
 #' @method vec_ptype2.borg_calendar borg_calendar
 #' @export
 vec_ptype2.borg_calendar.borg_calendar <- function(x, y, ...) {
-  if (identical_calc_attr(x, y)) {
-    new_calendar()
-  } else {
-    new_date()
-  }
+  calendar(vec_data(x),
+           relevant = borg_rlvnt(x),
+           label = borg_lbl(x),
+           constraint = borg_cnstrnt(x))
 }
 
 # COERCION TO CHARACTER

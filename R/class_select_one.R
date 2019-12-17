@@ -134,7 +134,7 @@ vec_cast.borg_slct_one.default <- function(x, to, ...) vec_default_cast(x, to)
 #' @method vec_cast.borg_slct_one borg_slct_one
 #' @export
 vec_cast.borg_slct_one.borg_slct_one <- function(x, to, ...) {
-  slct_one(x,
+  slct_one(vec_data(x),
            relevant = borg_rlvnt(to),
            choice_names = borg_ch_nms(to),
            choice_labels = borg_ch_lbls(to),

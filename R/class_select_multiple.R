@@ -332,7 +332,7 @@ vec_cast.borg_sm_list.default <- function(x, to, ...) vec_default_cast(x, to)
 #' @method vec_cast.borg_sm_list borg_sm_list
 #' @export
 vec_cast.borg_sm_list.borg_sm_list <- function(x, to, ...) {
-  sm_list(x,
+  sm_list(vec_data(x),
           relevant = borg_rlvnt(to),
           choice_names = borg_ch_nms(to),
           choice_labels = borg_ch_lbls(to),
@@ -347,7 +347,7 @@ vec_cast.borg_sm_list.borg_sm_list <- function(x, to, ...) {
 #' @method vec_cast.borg_sm_char borg_sm_char
 #' @export
 vec_cast.borg_sm_char.borg_sm_char <- function(x, to, ...) {
-  sm_char(x,
+  sm_char(vec_data(x),
           relevant = borg_rlvnt(to),
           choice_names = borg_ch_nms(to),
           choice_labels = borg_ch_lbls(to),

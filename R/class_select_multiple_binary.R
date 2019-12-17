@@ -73,7 +73,7 @@ vec_ptype_full.borg_sm_binary <- function(x, ...) {
 
 #' Partial abbreviation in tibbles
 vec_ptype_abbr.borg_sm_binary <- function(x, ...) {
-  "sm_binary"
+  "sm_bnry"
 }
 
 # COERCIONS
@@ -202,7 +202,7 @@ vec_cast.borg_sm_binary.default <- function(x, to, ...) vec_default_cast(x, to)
 #' @method vec_cast.borg_sm_binary borg_sm_binary
 #' @export
 vec_cast.borg_sm_binary.borg_sm_binary <- function(x, to, ...) {
-  sm_binary(x,
+  sm_binary(vec_data(x),
             relevant = borg_rlvnt(to),
             choice_name = borg_ch_name(to),
             choice_label = borg_ch_label(to),

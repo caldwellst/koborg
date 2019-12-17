@@ -9,6 +9,7 @@ sm_list(
   relevant = NA,
   choice_names = NA,
   choice_labels = NA,
+  q_name = NA,
   label = NA,
   constraint = NA,
   binary_sep = "/"
