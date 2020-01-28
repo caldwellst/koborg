@@ -1,15 +1,18 @@
 # CONSTRUCTORS FOR SELECT MULTIPLE CLASS
 
 #' Low level rank position constructor
-new_rank_position <- function(x = logical(),
+new_rank_position <- function(x = integer(),
                               relevant = NA,
                               choice_name = NA,
                               choice_label = NA,
                               q_name = NA,
                               label = NA,
                               constraint = NA,
+                              max_rank = NA,
                               position_sep = "/") {
-  vec_assert(x, logical())
+  vec_assert(x, integer())
+  rnk_pos_rank_check(x, max_rank)
+
   new_vctr(x,
            relevant = relevant,
            choice_name = choice_name,
@@ -18,6 +21,7 @@ new_rank_position <- function(x = logical(),
            label = label,
            constraint = constraint,
            position_sep = position_sep,
+           max_rank = max_rank,
            class = "borg_rank_position")
 }
 
@@ -37,6 +41,7 @@ rank_position <- function(x = integer(),
                           q_name = NA,
                           label = NA,
                           constraint = NA,
+                          max_rank = NA,
                           position_sep = "/") {
 
   x <- vec_cast(x, integer())
@@ -49,6 +54,7 @@ rank_position <- function(x = integer(),
       q_name,
       label,
       constraint,
+      max_rank,
       position_sep
     )
   )
@@ -58,7 +64,7 @@ rank_position <- function(x = integer(),
 validate_rank_pos <- function(x) {
   attr_err(x)
   attr_cmpnnt_err(x)
-  attr_sm_err(x)
+  attr_rnk_err(x)
   x
 }
 
@@ -74,7 +80,7 @@ vec_ptype_full.borg_rank_position <- function(x, ...) {
 
 #' Partial abbreviation in tibbles
 vec_ptype_abbr.borg_rank_position <- function(x, ...) {
-  "sm_bnry"
+  "rnk_bnry"
 }
 
 # COERCIONS
@@ -100,33 +106,8 @@ vec_ptype2.borg_rank_position.borg_rank_position <- function(x, y, ...) {
   if (identical_sm_attr(x, y)) {
     new_rank_position()
   } else {
-    logical()
+    integer()
   }
-}
-
-# COERCION TO LOGICAL
-#' @method vec_ptype2.borg_rank_position logical
-#' @export
-vec_ptype2.borg_rank_position.logical <- function(x, y, ...) {
-  new_rank_position(relevant = borg_rlvnt(x),
-                    choice_name = borg_ch_name(x),
-                    choice_label = borg_ch_label(x),
-                    q_name = borg_q_name(x),
-                    label = borg_lbl(x),
-                    constraint = borg_cnstrnt(x),
-                    position_sep = borg_pos_sep(x))
-}
-
-#' @method vec_ptype2.logical borg_rank_position
-#' @export
-vec_ptype2.logical.borg_rank_position <- function(x, y, ...) {
-  new_rank_position(relevant = borg_rlvnt(y),
-                    choice_name = borg_ch_name(y),
-                    choice_label = borg_ch_label(y),
-                    q_name = borg_q_name(y),
-                    label = borg_lbl(y),
-                    constraint = borg_cnstrnt(y),
-                    position_sep = borg_pos_sep(y))
 }
 
 # COERCION TO DOUBLE
@@ -139,6 +120,7 @@ vec_ptype2.borg_rank_position.double <- function(x, y, ...) {
                     q_name = borg_q_name(x),
                     label = borg_lbl(x),
                     constraint = borg_cnstrnt(x),
+                    max_rank = borg_max_rank(x),
                     position_sep = borg_pos_sep(x))
 }
 
@@ -151,6 +133,7 @@ vec_ptype2.double.borg_rank_position <- function(x, y, ...) {
                     q_name = borg_q_name(y),
                     label = borg_lbl(y),
                     constraint = borg_cnstrnt(y),
+                    max_rank = borg_max_rank(y),
                     position_sep = borg_pos_sep(y))
 }
 
@@ -165,6 +148,7 @@ vec_ptype2.borg_rank_position.integer <- function(x, y, ...) {
                     q_name = borg_q_name(x),
                     label = borg_lbl(x),
                     constraint = borg_cnstrnt(x),
+                    max_rank = borg_max_rank(x),
                     position_sep = borg_pos_sep(x))
 }
 
@@ -177,6 +161,7 @@ vec_ptype2.integer.borg_rank_position <- function(x, y, ...) {
                     q_name = borg_q_name(y),
                     label = borg_lbl(y),
                     constraint = borg_cnstrnt(y),
+                    max_rank = borg_max_rank(y),
                     position_sep = borg_pos_sep(y))
 }
 
@@ -210,29 +195,7 @@ vec_cast.borg_rank_position.borg_rank_position <- function(x, to, ...) {
                 label = borg_lbl(to),
                 q_name = borg_q_name(to),
                 constraint = borg_cnstrnt(to),
-                position_sep = borg_pos_sep(to))
-}
-
-# CASTING BETWEEN LOGICAL
-
-#' Casting borg_rank_position to logical
-#'
-#' @method vec_cast.logical borg_rank_position
-#' @export
-vec_cast.logical.borg_rank_position <- function(x, to, ...) vec_data(x)
-
-#' Casting logical to borg_rank_positionacter
-#'
-#' @method vec_cast.borg_rank_position logical
-#' @export
-vec_cast.borg_rank_position.logical <- function(x, to, ...) {
-  rank_position(x,
-                relevant = borg_rlvnt(to),
-                choice_name = borg_ch_name(to),
-                choice_label = borg_ch_label(to),
-                q_name = borg_q_name(to),
-                label = borg_lbl(to),
-                constraint = borg_cnstrnt(to),
+                max_rank = borg_max_rank(to),
                 position_sep = borg_pos_sep(to))
 }
 
@@ -256,6 +219,7 @@ vec_cast.borg_rank_position.double <- function(x, to, ...) {
                 q_name = borg_q_name(to),
                 label = borg_lbl(to),
                 constraint = borg_cnstrnt(to),
+                max_rank = borg_max_rank(to),
                 position_sep = borg_pos_sep(to))
 }
 
@@ -279,6 +243,7 @@ vec_cast.borg_rank_position.integer <- function(x, to, ...) {
                 q_name = borg_q_name(to),
                 label = borg_lbl(to),
                 constraint = borg_cnstrnt(to),
+                max_rank = borg_max_rank(to),
                 position_sep = borg_pos_sep(to))
 }
 
@@ -309,26 +274,6 @@ as_rank_position.borg_rank_position <- function(x, ...) x
 
 #' @rdname cast-rank-position
 #' @export
-as_rank_position.logical <- function(x,
-                                     relevant = NA,
-                                     choice_name = NA,
-                                     choice_label = NA,
-                                     q_name = NA,
-                                     label = NA,
-                                     constraint = NA,
-                                     position_sep = "/",
-                                     ...) {
-  vec_cast(x, to = rank_position(relevant = relevant,
-                                 choice_name = choice_name,
-                                 choice_label = choice_label,
-                                 q_name = q_name,
-                                 label = label,
-                                 constraint = constraint,
-                                 position_sep = position_sep))
-}
-
-#' @rdname cast-rank-position
-#' @export
 as_rank_position.numeric <- function(x,
                                      relevant = NA,
                                      choice_name = NA,
@@ -336,6 +281,7 @@ as_rank_position.numeric <- function(x,
                                      q_name = NA,
                                      label = NA,
                                      constraint = NA,
+                                     max_rank = NA,
                                      position_sep = "/",
                                      ...) {
   vec_cast(x, to = rank_position(relevant = relevant,
@@ -344,6 +290,7 @@ as_rank_position.numeric <- function(x,
                                  q_name = q_name,
                                  label = label,
                                  constraint = constraint,
+                                 max_rank = max_rank,
                                  position_sep = position_sep))
 }
 
@@ -356,6 +303,7 @@ as_rank_position.double <- function(x,
                                     q_name = NA,
                                     label = NA,
                                     constraint = NA,
+                                    max_rank = NA,
                                     position_sep = "/",
                                     ...) {
   vec_cast(x, to = rank_position(relevant = relevant,
@@ -364,6 +312,7 @@ as_rank_position.double <- function(x,
                                  q_name = q_name,
                                  label = label,
                                  constraint = constraint,
+                                 max_rank = max_rank,
                                  position_sep = position_sep))
 }
 
@@ -376,6 +325,7 @@ as_rank_position.integer <- function(x,
                                      q_name = NA,
                                      label = NA,
                                      constraint = NA,
+                                     max_rank = NA,
                                      position_sep = "/",
                                      ...) {
   vec_cast(x, to = rank_position(relevant = relevant,
@@ -384,6 +334,7 @@ as_rank_position.integer <- function(x,
                                  q_name = q_name,
                                  label = label,
                                  constraint = constraint,
+                                 max_rank = max_rank,
                                  position_sep = position_sep))
 }
 

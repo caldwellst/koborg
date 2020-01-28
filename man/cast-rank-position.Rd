@@ -4,7 +4,6 @@
 \alias{cast-rank-position}
 \alias{as_rank_position}
 \alias{as_rank_position.borg_rank_position}
-\alias{as_rank_position.logical}
 \alias{as_rank_position.numeric}
 \alias{as_rank_position.double}
 \alias{as_rank_position.integer}
@@ -14,18 +13,6 @@ as_rank_position(x, ...)
 
 \method{as_rank_position}{borg_rank_position}(x, ...)
 
-\method{as_rank_position}{logical}(
-  x,
-  relevant = NA,
-  choice_name = NA,
-  choice_label = NA,
-  q_name = NA,
-  label = NA,
-  constraint = NA,
-  position_sep = "/",
-  ...
-)
-
 \method{as_rank_position}{numeric}(
   x,
   relevant = NA,
@@ -34,6 +21,7 @@ as_rank_position(x, ...)
   q_name = NA,
   label = NA,
   constraint = NA,
+  max_rank = NA,
   position_sep = "/",
   ...
 )
@@ -46,6 +34,7 @@ as_rank_position(x, ...)
   q_name = NA,
   label = NA,
   constraint = NA,
+  max_rank = NA,
   position_sep = "/",
   ...
 )
@@ -58,6 +47,7 @@ as_rank_position(x, ...)
   q_name = NA,
   label = NA,
   constraint = NA,
+  max_rank = NA,
   position_sep = "/",
   ...
 )

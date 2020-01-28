@@ -2,10 +2,10 @@
 % Please edit documentation in R/utils_checks_rnk.R
 \name{rnk_pos_sep_error}
 \alias{rnk_pos_sep_error}
-\title{Check binary separator attribute for borg select multiple classes}
+\title{Check position separator attribute for borg rank position classes}
 \usage{
 rnk_pos_sep_error(x)
 }
 \description{
-Check binary separator attribute for borg select multiple classes
+Check position separator attribute for borg rank position classes
 }

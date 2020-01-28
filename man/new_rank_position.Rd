@@ -5,13 +5,14 @@
 \title{Low level rank position constructor}
 \usage{
 new_rank_position(
-  x = logical(),
+  x = integer(),
   relevant = NA,
   choice_name = NA,
   choice_label = NA,
   q_name = NA,
   label = NA,
   constraint = NA,
+  max_rank = NA,
   position_sep = "/"
 )
 }

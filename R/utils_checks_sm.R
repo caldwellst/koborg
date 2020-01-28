@@ -33,7 +33,7 @@ sm_chc_check <- function(x, choice_names, type = "list") {
     }
     check <- map_lgl(x, ~ all(. %in% choice_names))
     if (!all(check)) {
-      msg <- paste0("values are not in choice_names.")
+      msg <- paste0("Values are not in choice_names.")
       abort(msg, .subclass = "borg_sm_chc_error")
     }
   }

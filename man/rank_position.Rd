@@ -12,6 +12,7 @@ rank_position(
   q_name = NA,
   label = NA,
   constraint = NA,
+  max_rank = NA,
   position_sep = "/"
 )
 }
