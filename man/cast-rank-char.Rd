@@ -22,7 +22,8 @@ as_rank_char(x, ...)
   q_name = NA,
   label = NA,
   constraint = NA,
-  binary_sep = "/",
+  max_rank = na_length(choice_names),
+  position_sep = "/",
   ...
 )
 
@@ -36,7 +37,8 @@ as_rank_char(x, ...)
   q_name = NA,
   label = NA,
   constraint = NA,
-  binary_sep = "/",
+  max_rank = na_length(choice_names),
+  position_sep = "/",
   ...
 )
 

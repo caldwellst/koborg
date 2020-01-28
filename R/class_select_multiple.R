@@ -65,7 +65,7 @@ new_sm_list <- function(x = list(),
   vec_assert(x, list())
   sm_chc_check(x, choice_names)
   new_list_of(x,
-              ptype = character(),
+              ptype = char_helper(),
               relevant = relevant,
               choice_names = choice_names,
               choice_labels = choice_labels,
@@ -76,14 +76,11 @@ new_sm_list <- function(x = list(),
               class = "borg_sm_list")
 }
 
-
 #' Select multiple list constructor
 #'
 #' `sm_list()` constructs a select multiple list object, where each entry in the list corresponds to the selected
 #' options for that survey row. Can be constructed from an existing list of character vectors or a character vector
 #' itself that will be turned into a list by splitting on spaces in the string.
-#'
-#' @importFrom stringr str_split
 #'
 #' @export
 sm_list <- function(x = list(),
@@ -96,7 +93,7 @@ sm_list <- function(x = list(),
                     binary_sep = "/") {
 
   if (vec_is(x, character())) {
-    x <- str_split(x, " ")
+    x <- lapply(x, function(x) vec_cast(x, char_helper()))
   }
 
   validate_sm(

@@ -72,6 +72,7 @@ new_rank_list <- function(x = list(),
                           constraint = NA,
                           max_rank = na_length(choice_names),
                           position_sep = "/") {
+  print(vec_ptype(x))
   vec_assert(x, list())
   sm_chc_check(x, choice_names)
   new_list_of(x,
@@ -106,10 +107,12 @@ rank_list <- function(x = list(),
                       constraint = NA,
                       max_rank = na_length(choice_names),
                       position_sep = "/") {
-
+  print(x)
   if (vec_is(x, character())) {
     x <- str_split(x, " ")
   }
+  print(x)
+  print(vec_ptype(x))
 
   validate_rank(
     new_rank_list(

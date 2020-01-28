@@ -10,7 +10,7 @@ identical_rnk_attr <- function(x, y) {
 #' Check additional attributes for borg rank classes
 attr_rnk_err <- function(x) {
   q_name_error(borg_q_name(x))
-  rnk_pos_sep_error(borg_bin_sep(x))
+  rnk_pos_sep_error(borg_pos_sep(x))
 }
 
 #' Check binary separator attribute for borg select multiple classes

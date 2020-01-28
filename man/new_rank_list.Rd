@@ -12,7 +12,8 @@ new_rank_list(
   q_name = NA,
   label = NA,
   constraint = NA,
-  binary_sep = "/"
+  max_rank = na_length(choice_names),
+  position_sep = "/"
 )
 }
 \description{
