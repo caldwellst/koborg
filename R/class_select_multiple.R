@@ -22,7 +22,6 @@ new_sm_char <- function(x = character(),
            class = "borg_sm_char")
 }
 
-
 #' Select multiple character constructor
 #'
 #' `sm_char()` constructs a select multiple character vector, each value in the vecotr corresponds to the selected
